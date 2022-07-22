@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlogPost template by Adobe Dreamweaver</title>
+<link href="BlogPostAssets/styles/blogPostStyle.css" rel="stylesheet" type="text/css">
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+	
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+	
+</head>
+
+<body>
+<div id="mainwrapper">
+  <header class="fixed-top"> 
+    <!--**************************************************************************
+    Header starts here. It contains Logo and 3 navigation links. 
+    ****************************************************************************-->
+    <div id="logo"><!-- <img src="logoImage.png" alt="sample logo"> --><!-- Company Logo text -->Logo</div>
+    <nav> <a href="#" title="Link">2D Simulations</a> <a href="#" title="Link">3D Simulations</a><a href="#" title="Link">Nav3</a> </nav>
+  </header>
+  <div id="content">
+    <div class="notOnDesktop"> 
+      <!-- This search box is displayed only in mobile and tablet laouts and not in desktop layouts -->
+      <input type="text" placeholder="Search">
+    </div>
+    <section id="mainContent"> 
+      <!--************************************************************************
+    Main Blog content starts here
+    ****************************************************************************-->
+      <h1><!-- Blog title -->Differential drive car</h1>
+      <section id= "differentialdrivecar"></section><h2>Pranav A. Bhounsule</h2>
+		
+		<h3><strong>1 Differential drive car</strong></h3>
+		
+      <p>Fig. 1 (a) shows the differential drive car. There are two wheels, each powered by a motor. There is a castor wheel in the front (not shown). A castor allows the robot to do quick turns. The radius of each wheel is $r$ and the distance between the two wheels is $2b$. The speed of the left wheel is $\dot{\phi}_l$ and that of the right wheel is $\dot{\phi}_r$, both of which are controlled.</p>
+		
+		<h3><strong>2 Forward Kinematics</strong></h3>
+		<img src="figures/differential_drive.png" alt=""/>
+		
+      <p> <strong>Top view of differential drive car</strong> (a) The world or fixed frame $X_0-Y_0$ is shown to coincide with robot local frame. (b) The local frame $X_1-Y_1$ is attached to the robot and moves with it. The steer or heading angles is $\theta$ and the point $C$ is midway between two wheels. It has the coordinates ${x^1_c, y^1_c}$ in the local frame and ${x^0_c, y^0_c}$ in the world or fixed frame. Here we find the differential equations for the position of $C$, ${\dot{x}^0_c, \dot{y}^0_c}$ and heading $\dot{\theta}$.</p>
+		
+		<p>&nbsp;&nbsp;&nbsp;The forward kinematics problem is to find the position of the point C at time some time $t$, $(x^0_c(t),y^0_c(t))$. Here we will write an expression for the rate in frame 1, $(\dot{x}^1_c(t),\dot{y}^1_c(t))$ then find the rate in frame 0,  $(\dot{x}^0_c(t),\dot{y}^0_c(t))$. We will integrate this equation with the given initial condition $(x^0_c(t=0),y^0_c(t=0))$ and control history (speed of both wheels, $\dot{\phi}_l$ and $\dot{\phi}_r$) to find the position $(x^0_c(t),y^0_c(t))$
+		<br>&nbsp;&nbsp;&nbsp;There are some differences between the manipulator and the differential drive robot. In the manipulator we were able to write equations for the degrees of freedom, $\theta_1$ and $\theta_2$. However, we cannot do so for the differential drive robot. We can only write the equation for the rates; the rate of change of position of the mid-point C between the two wheels, $\dot{x}_c$, $\dot{y}_c$, and the rate of change of heading angle $\dot{\theta}$.
+		<br>&nbsp;&nbsp;&nbsp;We use the Fig.~\ref{fig:car} to derive an expression for the kinematics of the robot for the heading motion. We use two frames, $O_0-X_0-Y_0$ is the fixed or world frame and $O_1-X_1-Y_1$ is the local frame attached to the car and that moves with the car. 
+			<br>&nbsp;&nbsp;&nbsp;We derive the velocity of C in the frame $O_1-X_1-Y_1$. If the left wheel is stationary and the right moves with a speed $\dot{\phi}_r$, then the $\dot{x}^1_c = 0.5 r \dot{\phi}_r$. The factor $0.5$ is due to point C being mid-way between the wheels. One can similarly argue that if right wheel is stationary and the left moves with a speed $\dot{\phi}_l$, then the $\dot{x}^1_c = 0.5 r \dot{\phi}_l$. However, if both wheels spin the speed would be
+\begin{align}
+\dot{x}^1_c &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \nonumber
+\end{align}
+		
+		&nbsp;&nbsp;&nbsp;Since the wheels can only move the point C in the forward direction (along $X_1$), the y-component of the velocity (along $Y_1$) is going to be zero. Thus
+\begin{align}
+\dot{y}^1_c &= 0 \nonumber
+\end{align}
+
+
+&nbsp;&nbsp;&nbsp;The x- and y- components of the velocity in frame $O_0-X_0-Y_0$ can be rewritten using the rotation matrix as
+\begin{align}
+\dot{c}^0 &= R^0_1 \dot{c}^1 \nonumber \\
+ \begin{bmatrix}
+ \dot{x}^0_c \\
+ \dot{y}^0_c 
+ \end{bmatrix} &= 
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+ \dot{x}^1_c \\
+ \dot{y}^1_c 
+ \end{bmatrix} \nonumber \\
+ &= 
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+0.5 r (\dot{\phi}_r + \dot{\phi}_l) \nonumber \\
+0 
+ \end{bmatrix}
+\end{align}
+The above expressions are simplified to 
+\begin{align}
+\dot{x}_c^0 &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \cos\theta \nonumber \\
+\dot{y}_c^0 &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \sin\theta \nonumber
+\end{align}
+
+&nbsp;&nbsp;&nbsp;Next, we evaluate the rate of change of heading $\dot{\theta}$. If the left wheel is stationary and the right wheel moves with a non-zero speed $\dot{\phi}_r$, then the car will start turning counter-clockwise pivoting about the stationary left wheel with a turning radius of $2b$. The arc length moved by the right wheel is $r \dot{\phi}_r$ is also equal to $2b \dot{\theta}$. Thus $2b \dot{\theta} = r \phi_r \rightarrow \dot{\theta} = \frac {r \phi_r}{2b}$.  Similarly, if the right wheel is stationary and the left wheel is turning, the resulting rate of change of heading is $\dot{\theta} = -\frac {r \phi_l}{2b}$. If both wheels are spinning then
+\begin{align}
+\dot{\theta} &= 0.5 \frac{r}{b} (\dot{\phi}_r - \dot{\phi}_l) \nonumber
+\end{align}
+To simplify analysis, we substitute $v = 0.5 r (\dot{\phi}_r + \dot{\phi}_l)$ which is the forward speed and $\omega =  \frac{0.5 r}{b} (\dot{\phi}_r - \dot{\phi}_l)$ which is the angular speed of the car. 
+
+Thus, the complete set of equations are
+\begin{align}
+\dot{x}_c^0 &= v \cos\theta \label{eqn:rot1} \\
+\dot{y}_c^0 &=  v \sin\theta \label{eqn:rot2} \\
+\dot{\theta} &= \omega \label{eqn:rot3}
+\end{align}
+
+&nbsp;&nbsp;&nbsp;Unlike the manipulator, the forward kinematics of the differential drive car is a differential equation. In order to animate the system, we will need to find the position $x_c^0(t_i)$, $y_c^0(t_i)$, and $\theta(t_i)$ where $t_i$ is the time step $i=0, 1, 2,...$. We do this by integrating the equations of motion using Euler's method. Assume that $h$ is the time step and is given, the known initial states of $x_c^0(t_0)$, $y_c^0(t_0)$, and $\theta(t_0)$. Then we can find the position and heading using the formula below.
+\begin{align} 
+x_c^0(t_{i+1}) &= x_c^0(t_i) +  v(t_i) \cos\theta(t_i) h \nonumber\\
+y_c^0(t_{i+1}) &= y_c^0(t_i) +  v(t_i) \sin\theta(t_i) h \nonumber \\
+\theta(t_{i+1}) &= \theta(t_{i}) + \omega(t_i)  h \nonumber
+\end{align}
+Note that the input to the system is the speed $v(t_i)$ and heading direction $\omega(t_i)$. Open and run the MATLAB file <em>diff_drive.m</em>.
+		</p>
+		<h3><strong>3 Inverse Kinetics</strong></h3>
+		<p><strong>Inverse kinematics for the differential drive car</strong>: The goal is to get a point P at a distance of $p_x$ and $p_y$ from $O_1$ and along the local frame $O_1-X_1-Y_1$ to trace the reference trajectory given by $(x_{{\scriptsize ref}}(t),y_{{\scriptsize ref}}(t))$.}</p>
+		<p>From Fig.~\ref{fig:car2} we can write
+\begin{align}
+p^0 &= R^0_1 p^1 \nonumber \\
+c^0 &= R^0_1 c^1  \nonumber 
+\end{align}
+
+Thus,
+\begin{align}
+p^0 - c^0 &= R^0_1 (p^1-c^1) \nonumber \\
+ \begin{bmatrix}
+ x^0_p - x^0_c \\
+y^0_p - y^0_c
+ \end{bmatrix} &= 
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+ x^1_p - x^1_c  \\
+y^1_p - y^1_c
+ \end{bmatrix} \\
+  &= 
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+p_x  \\
+p_y
+ \end{bmatrix}
+\end{align}
+Rewriting
+\begin{align}
+ \begin{bmatrix}
+x^0_p \\
+y^0_p
+ \end{bmatrix} &= 
+  \begin{bmatrix}
+x^0_c  \\
+y^0_c
+ \end{bmatrix}
+ +
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+ p_x  \\
+ p_y
+ \end{bmatrix}
+\end{align}
+We can also write the coordinates of C given point P (this will be needed in simulation)
+\begin{align}
+ \begin{bmatrix}
+x^0_c \\
+y^0_c
+ \end{bmatrix} &= 
+  \begin{bmatrix}
+x^0_p  \\
+y^0_p
+ \end{bmatrix}
+-
+ \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
+ \begin{bmatrix}
+ p_x  \\
+ p_y
+ \end{bmatrix}
+\end{align}
+Differentiating with respect to time
+\begin{align}
+ \begin{bmatrix}
+\dot{x}^0_p \\
+\dot{y}^0_p
+ \end{bmatrix} &= 
+  \begin{bmatrix}
+\dot{x}^0_c  \\
+\dot{y}^0_c
+ \end{bmatrix}
+ +
+ \begin{bmatrix}  -\dot{\theta}\sin\theta  & -\dot{\theta}\cos\theta  \\  \dot{\theta}\cos\theta  &   -\dot{\theta}\sin\theta  \end{bmatrix}
+ \begin{bmatrix}
+ p_x  \\
+ p_y
+ \end{bmatrix}
+\end{align}
+Substituting $\dot{x}^0_c = v \cos\theta$, $\dot{y}^0_c = v \sin\theta$, and $\dot{\theta} = \omega$.
+\begin{align}
+ \begin{bmatrix}
+\dot{x}^0_p \\
+\dot{y}^0_p
+ \end{bmatrix} &= 
+  \begin{bmatrix}
+v \cos\theta  \\
+v \sin\theta
+ \end{bmatrix}
+ +
+ \begin{bmatrix}  (-p_x \sin\theta  - p_y \cos\theta) \omega  \\  (p_x \cos\theta     - p_y \sin\theta ) \omega \end{bmatrix}
+\end{align}
+Rewriting
+\begin{align}
+ \begin{bmatrix}
+\dot{x}^0_p \\
+\dot{y}^0_p
+ \end{bmatrix} &= 
+  \begin{bmatrix}
+ \cos\theta &  (-p_x \sin\theta  - p_y \cos\theta) \\
+ \sin\theta &   (p_x \cos\theta     - p_y \sin\theta )
+ \end{bmatrix}
+ \begin{bmatrix} 
+  v  \\  \omega 
+ \end{bmatrix}
+\end{align}
+Let $x_p$ and $y_p$ be the current x- and y-position of point and let $x_{\mbox{\scriptsize ref}}$ and $y_{\mbox{\scriptsize ref}}$ be the reference position. We set $\dot{x}^0_p = K_{px}  (x_{\mbox{\scriptsize ref}}-x^0_p)$ and $\dot{y}^0_p = K_{py}  (y_{\mbox{\scriptsize ref}}-y^0_p)$ where $K_{px}$ and $K_{py}$ are user chosen gains. Substituting in the above equation and solving for $v$ and $\omega$ we get
+\begin{align}
+ \begin{bmatrix} 
+  v  \\  \omega 
+ \end{bmatrix} 
+ =  \begin{bmatrix} 
+ \cos\theta - \frac{p_y}{p_x}\sin\theta & \sin\theta +  \frac{p_y}{p_x} \cos\theta \\
+-\frac{1}{p_x} \sin\theta & \frac{1}{p_x} \cos\theta \\
+  \end{bmatrix} 
+  \begin{bmatrix} 
+K_{px}  (x_{\mbox{\scriptsize ref}}-x^0_p) \\
+K_{py}  (y_{\mbox{\scriptsize ref}}-y^0_p)
+ \end{bmatrix} \label{eqn:controls}
+\end{align}
+
+
+Open and run the MATLAB file {\it diff\_drive\_ik.m}. This file shows how to draw the astroid given by
+$x_{\mbox{_ref}}(t) = \cos^3(\frac{\pi t}{5})$ and
+$y_{\mbox{\scriptsize ref}}(t) = \sin^3(\frac{\pi t}{5})$.
+
+This is how the simulation is done. We find the controls, $v$ and $\omega$ from Eqn.~\ref{eqn:controls} and use that to integrate the Eqns~\ref{eqn:rot1}, \ref{eqn:rot2}, and \ref{eqn:rot3}. </p>
+		
+      <aside id="authorInfo"> 
+        <!-- The author information is contained here -->
+        <h2>Author Name</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </aside>
+    </section>
+    <section id= "sidebar" class="fixed-right"> 
+      <!--************************************************************************
+    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
+    ****************************************************************************-->
+      <div id="table"><p><strong>Table of Contents</strong></p></div>
+      <nav>
+        <ul><p>Differential drive car</p>
+          <li><a href="#differentialdrivecar" title="Link">&nbsp;&nbsp;&nbsp;1 Differential drive car</a></li>
+          <li><a href="#forwardkinetics" title="Link">&nbsp; &nbsp;2 Forward Kinetics</a></li>
+          <li><a href="#inversekinetics" title="Link">&nbsp;&nbsp;&nbsp;3 Inverse Kinetics</a></li>
+        </ul>
+      </nav>
+    </section>
+    <footer> 
+      <!--************************************************************************
+    Footer starts here
+    ****************************************************************************-->
+      <article>
+        <h3>Footer1</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </article>
+      <article>
+        <h3>Footer2</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </article>
+    </footer>
+  </div>
+  <div id="footerbar"><!-- Small footerbar at the bottom --></div>
+</div>
+</body>
+</html>
