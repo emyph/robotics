@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BlogPost template by Adobe Dreamweaver</title>
+<title>Differential Drive Car</title>
 <link href="blogPostStyle.css" rel="stylesheet" type="text/css">
 <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
 	
@@ -42,7 +42,7 @@
 		<section class="anchor" id= "differentialdrivecar"></section><h3><strong>1 Differential drive car</strong></h3>
 		
       <p>Fig. 1 (a) shows the differential drive car. There are two wheels, each powered by a motor. There is a castor wheel in the front (not shown). A castor allows the robot to do quick turns. The radius of each wheel is \(r\) and the distance between the two wheels is \(2b\). The speed of the left wheel is \(\dot{\phi}_l\) and that of the right wheel is \(\dot{\phi}_r\), both of which are controlled.</p>
-		<section class="anchor" id= "forwardkinetics"></section>
+		<section class="anchor" id= "forwardkinematics"></section>
 		<h3><strong>2 Forward Kinematics</strong></h3>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/n8Tda3KFvZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		<br>
@@ -110,7 +110,7 @@ y_c^0(t_{i+1}) &= y_c^0(t_i) +  v(t_i) \sin\theta(t_i) h \nonumber \\
 \end{align}
 Note that the input to the system is the speed \(v(t_i)\) and heading direction \(\omega(t_i)\). Open and run the MATLAB file <em>diff_drive.m</em>.
 		</p>
-		<section class="anchor" id="inversekinetics"></section><h3><strong>3 Inverse Kinetics</strong></h3>
+		<section class="anchor" id="inversekinematics"></section><h3><strong>3 Inverse Kinematics</strong></h3>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/6oor2CnSx8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		<br>
 		<img src="figures/differential_drive_ik.png" alt=""/>
@@ -254,12 +254,12 @@ This is how the simulation is done. We find the controls, \(v\) and \(\omega\) f
       <nav>
         <ul><p>Differential drive car</p>
           <li><a href="#differentialdrivecar" title="Link">&nbsp;&nbsp;&nbsp;1 Differential drive car</a></li>
-          <li><a href="#forwardkinetics" title="Link">&nbsp; &nbsp;2 Forward Kinematics</a></li>
-          <li><a href="#inversekinetics" title="Link">&nbsp;&nbsp;&nbsp;3 Inverse Kinematics</a></li>
+          <li><a href="#forwardkinematics" title="Link">&nbsp; &nbsp;2 Forward Kinematics</a></li>
+          <li><a href="#inversekinematics" title="Link">&nbsp;&nbsp;&nbsp;3 Inverse Kinematics</a></li>
 			<p>Notes: 
-				<br> Forward Kinetics <a href="notes/2D_diff_drive_forward_kinematics.pdf">Notes</a>
+				<br> Forward Kinematics <a href="notes/2D_diff_drive_forward_kinematics.pdf">Notes</a>
 				<a href="code/2D_diff_drive_forward_matlab/">MATLab Code</a>
-			<br>Inverse Kinetics <a href="notes/2D_diff_drive_inverse_kinematics.pdf">Notes</a>
+			<br>Inverse Kinematics <a href="notes/2D_diff_drive_inverse_kinematics.pdf">Notes</a>
 				<a href="code/2D_diff_drive_forward_matlab">MATLab Code</a></p>
         </ul>
       </nav>
