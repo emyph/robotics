@@ -1,11 +1,18 @@
 <!doctype html>
-<html>
+
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Differential Drive Car</title>
-<link href="blogPostStyle.css" rel="stylesheet" type="text/css">
-<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Documentation Template</title>
+    <meta name="description" content="A simple HTML/CSS DocumentationTemplate">
+    <meta name="author" content="Carlos Yllobre">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="robotics/style.css" rel="stylesheet" type="text/css">
 	
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -16,55 +23,104 @@
 <script type="text/javascript"
   src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-	
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
-<div id="mainwrapper">
-  <header class="fixed-top"> 
-    <!--**************************************************************************
-    Header starts here. It contains Logo and 3 navigation links. 
-    ****************************************************************************-->
-    <div id="logo"><!-- <img src="logoImage.png" alt="sample logo"> --><!-- Company Logo text -->Logo</div>
-    <nav> <a href="#" title="Link">2D Simulations</a> <a href="#" title="Link">3D Simulations</a><a href="#" title="Link">Nav3</a> </nav>
-  </header>
-  <div id="content">
-    <div class="notOnDesktop"> 
-      <!-- This search box is displayed only in mobile and tablet laouts and not in desktop layouts -->
-      <input type="text" placeholder="Search">
+
+    <div class="navbar clear nav-top">
+        <div class="row content">
+            <a href="#"><img class="logo" src="logo.svg"></a>
+            <a class="right" style="text-decoration: underline;" href="#"><i class="fas fa-book"></i>&nbsp; Documentation</a>
+            <a class="right" href="mailto:yourapp@email.com" target="_blank"><i class="fas fa-paper-plane"></i>&nbsp; yourapp@email.com</a>
+        </div>
     </div>
-    <section id="mainContent"> 
-      <!--************************************************************************
-    Main Blog content starts here
-    ****************************************************************************-->
-      <h1><!-- Blog title -->Differential drive car</h1><h2>Pranav A. Bhounsule</h2>
-		
-		<section class="anchor" id= "differentialdrivecar"></section><h3><strong>1 Differential drive car</strong></h3>
-		
-      <p>Fig. 1 (a) shows the differential drive car. There are two wheels, each powered by a motor. There is a castor wheel in the front (not shown). A castor allows the robot to do quick turns. The radius of each wheel is \(r\) and the distance between the two wheels is \(2b\). The speed of the left wheel is \(\dot{\phi}_l\) and that of the right wheel is \(\dot{\phi}_r\), both of which are controlled.</p>
-		<section class="anchor" id= "forwardkinematics"></section>
-		<h3><strong>2 Forward Kinematics</strong></h3>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/n8Tda3KFvZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		<br>
-		<img src="figures/differential_drive.png" alt=""/>
-		
-      <p>Figure 1: <strong>Top view of differential drive car</strong> (a) The world or fixed frame \(X_0-Y_0\) is shown to coincide with robot local frame. (b) The local frame \(X_1-Y_1\) is attached to the robot and moves with it. The steer or heading angles is \(\theta\) and the point \(C\) is midway between two wheels. It has the coordinates \({x^1_c, y^1_c}\) in the local frame and \({x^0_c, y^0_c}\) in the world or fixed frame. Here we find the differential equations for the position of \(C\), \({\dot{x}^0_c, \dot{y}^0_c}\) and heading \(\dot{\theta}\).</p>
-		
-		<p>&nbsp;&nbsp;&nbsp;The forward kinematics problem is to find the position of the point C at time some time \(t\), \((x^0_c(t),y^0_c(t))\). Here we will write an expression for the rate in frame 1, \((\dot{x}^1_c(t),\dot{y}^1_c(t))\) then find the rate in frame 0,  \((\dot{x}^0_c(t),\dot{y}^0_c(t))\). We will integrate this equation with the given initial condition \((x^0_c(t=0),y^0_c(t=0))\) and control history (speed of both wheels, \(\dot{\phi}_l\) and \(\dot{\phi}_r\)) to find the position \((x^0_c(t),y^0_c(t))\)
-		<br>&nbsp;&nbsp;&nbsp;There are some differences between the manipulator and the differential drive robot. In the manipulator we were able to write equations for the degrees of freedom, \(\theta_1\) and \(\theta_2\). However, we cannot do so for the differential drive robot. We can only write the equation for the rates; the rate of change of position of the mid-point C between the two wheels, \(\dot{x}_c\), \(\dot{y}_c\), and the rate of change of heading angle \(\dot{\theta}\).
-		<br>&nbsp;&nbsp;&nbsp;We use the Fig. 1 to derive an expression for the kinematics of the robot for the heading motion. We use two frames, \(O_0-X_0-Y_0\) is the fixed or world frame and \(O_1-X_1-Y_1\) is the local frame attached to the car and that moves with the car. 
-			<br>&nbsp;&nbsp;&nbsp;We derive the velocity of C in the frame \(O_1-X_1-Y_1\). If the left wheel is stationary and the right moves with a speed \(\dot{\phi}_r\), then the \(\dot{x}^1_c = 0.5 r \dot{\phi}_r\). The factor \(0.5\) is due to point C being mid-way between the wheels. One can similarly argue that if right wheel is stationary and the left moves with a speed \(\dot{\phi}_l\), then the \(\dot{x}^1_c = 0.5 r \dot{\phi}_l\). However, if both wheels spin the speed would be
+
+    <div class="container clear">
+        <div class="row wrapper">
+
+            <div class="sidepanel">
+
+                <a class="title" href="#">Differential Drive Car</a>
+                
+                <a class="section" href="#">1 Differential Drive Car</a>
+                <a class="section" href="#forward_kinematics">2 Forward Kinematics</a>
+                <a class="section" href="#inverse_kinematics">3 Inverse Kinematics</a>
+
+                <div class="divider left"></div>
+
+                <a class="title" href="#gettingstarted">Getting Started</a>
+
+                <a class="section" href="#installingapp">Installing the App</a>
+                 <a class="section" href="#openingapp">Opening the App</a>
+
+                <div class="divider left"></div>
+
+                <a class="title" href="#basicfeatures">Basic Features</a>
+
+                <a class="section" href="#basicfeatures">Feature 1</a>
+                <a class="section" href="#basicfeatures">Feature 2</a>
+                <a class="section" href="#feature3">Feature 3</a>
+                <a class="section" href="#feature3">Feature 4</a>
+                <a class="section" href="#feature3">Feature 5</a>
+
+                <div class="divider left"></div>
+
+                <a class="title" href="#advanced">Advanced Features</a>
+
+                <a class="section" href="#advanced">Feature A</a>
+                <a class="section" href="#featureb">Feature B</a>
+                <a class="section" href="#featurec">Feature C</a>
+                <a class="sub-section" href="#featurec1">Feature C.1</a>
+                <a class="sub-section" href="#featurec2">Feature C.2</a>
+                <a class="section" href="#featured">Feature D</a>
+
+                <div class="divider left"></div>
+
+                <a class="title" href="#accesibility">Accesibility</a>
+
+                <div class="divider left"></div>
+
+                <a class="title" href="#moreinfo">More Info</a>
+            
+             <div class="space double"></div>
+
+            </div>
+
+            <div class="right-col">
+            
+
+
+                <h1>1 Differential Drive Car</h1>
+                
+                <p>Fig. 1 (a) shows the differential drive car. There are two wheels, each powered by a motor. There is a castor wheel in the front (not shown). A castor allows the robot to do quick turns. The radius of each wheel is \(r\) and the distance between the two wheels is \(2b\). The speed of the left wheel is \(\dot{\phi}_l\) and that of the right wheel is \(\dot{\phi}_r\), both of which are controlled.</p> 
+            
+                <h1>2 Forward Kinematics</h1><section class="anchor" id="forward_kinematics"></section>
+             	<iframe width="560" height="315" src="https://www.youtube.com/embed/n8Tda3KFvZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<br>
+				<img src="figures/differential_drive.png" alt=""/>
+                <p>Figure 1: <strong>Top view of differential drive car</strong> (a) The world or fixed frame \(X_0-Y_0\) is shown to coincide with robot local frame. (b) The local frame \(X_1-Y_1\) is attached to the robot and moves with it. The steer or heading angles is \(\theta\) and the point \(C\) is midway between two wheels. It has the coordinates \({x^1_c, y^1_c}\) in the local frame and \({x^0_c, y^0_c}\) in the world or fixed frame. Here we find the differential equations for the position of \(C\), \({\dot{x}^0_c, \dot{y}^0_c}\) and heading \(\dot{\theta}\).</p>
+				
+				<pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The forward kinematics problem is to find the position of the point C at time some time \(t\), \((x^0_c(t),y^0_c(t))\). Here we will write an expression for the rate in frame 1, \((\dot{x}^1_c(t),\dot{y}^1_c(t))\) then find the rate in frame 0,  \((\dot{x}^0_c(t),\dot{y}^0_c(t))\). We will integrate this equation with the given initial condition \((x^0_c(t=0),y^0_c(t=0))\) and control history (speed of both wheels, \(\dot{\phi}_l\) and \(\dot{\phi}_r\)) to find the position \((x^0_c(t),y^0_c(t))\)</pr>
+				
+				<pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There are some differences between the manipulator and the differential drive robot. In the manipulator we were able to write equations for the degrees of freedom, \(\theta_1\) and \(\theta_2\). However, we cannot do so for the differential drive robot. We can only write the equation for the rates; the rate of change of position of the mid-point C between the two wheels, \(\dot{x}_c\), \(\dot{y}_c\), and the rate of change of heading angle \(\dot{\theta}\).</pr>
+				
+				<pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We use the Fig. 1 to derive an expression for the kinematics of the robot for the heading motion. We use two frames, \(O_0-X_0-Y_0\) is the fixed or world frame and \(O_1-X_1-Y_1\) is the local frame attached to the car and that moves with the car. </pr>
+				
+				<pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We derive the velocity of C in the frame \(O_1-X_1-Y_1\). If the left wheel is stationary and the right moves with a speed \(\dot{\phi}_r\), then the \(\dot{x}^1_c = 0.5 r \dot{\phi}_r\). The factor \(0.5\) is due to point C being mid-way between the wheels. One can similarly argue that if right wheel is stationary and the left moves with a speed \(\dot{\phi}_l\), then the \(\dot{x}^1_c = 0.5 r \dot{\phi}_l\). However, if both wheels spin the speed would be
 \begin{align}
 \dot{x}^1_c &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \nonumber
 \end{align}
 		
-		&nbsp;&nbsp;&nbsp;Since the wheels can only move the point C in the forward direction (along \(X_1\)), the y-component of the velocity (along \(Y_1\)) is going to be zero. Thus
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since the wheels can only move the point C in the forward direction (along \(X_1\)), the y-component of the velocity (along \(Y_1\)) is going to be zero. Thus
 \begin{align}
 \dot{y}^1_c &= 0 \nonumber
 \end{align}
 
 
-&nbsp;&nbsp;&nbsp;The x- and y- components of the velocity in frame \(O_0-X_0-Y_0\) can be rewritten using the rotation matrix as
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The x- and y- components of the velocity in frame \(O_0-X_0-Y_0\) can be rewritten using the rotation matrix as
 \begin{align}
 \dot{c}^0 &= R^0_1 \dot{c}^1 \nonumber \\
  \begin{bmatrix}
@@ -75,21 +131,21 @@
  \begin{bmatrix}
  \dot{x}^1_c \\
  \dot{y}^1_c 
- \end{bmatrix} \nonumber \\
+ \end{bmatrix} &(4)\nonumber \\
  &= 
  \begin{bmatrix}  \cos\theta & -\sin\theta \\  \sin\theta &   \cos\theta  \end{bmatrix}
  \begin{bmatrix}
 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \nonumber \\
 0 
- \end{bmatrix}
+ \end{bmatrix} &(5)
 \end{align}
 The above expressions are simplified to 
 \begin{align}
 \dot{x}_c^0 &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \cos\theta \nonumber \\
 \dot{y}_c^0 &= 0.5 r (\dot{\phi}_r + \dot{\phi}_l) \sin\theta \nonumber
 \end{align}
-
-&nbsp;&nbsp;&nbsp;Next, we evaluate the rate of change of heading \(\dot{\theta}\). If the left wheel is stationary and the right wheel moves with a non-zero speed \(\dot{\phi}_r\), then the car will start turning counter-clockwise pivoting about the stationary left wheel with a turning radius of \(2b\). The arc length moved by the right wheel is \(r \dot{\phi}_r\) is also equal to \(2b \dot{\theta}\). Thus \(2b \dot{\theta} = r \phi_r \rightarrow \dot{\theta} = \frac {r \phi_r}{2b}\).  Similarly, if the right wheel is stationary and the left wheel is turning, the resulting rate of change of heading is \(\dot{\theta} = -\frac {r \phi_l}{2b}\). If both wheels are spinning then
+</pr>
+				<pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next, we evaluate the rate of change of heading \(\dot{\theta}\). If the left wheel is stationary and the right wheel moves with a non-zero speed \(\dot{\phi}_r\), then the car will start turning counter-clockwise pivoting about the stationary left wheel with a turning radius of \(2b\). The arc length moved by the right wheel is \(r \dot{\phi}_r\) is also equal to \(2b \dot{\theta}\). Thus \(2b \dot{\theta} = r \phi_r \rightarrow \dot{\theta} = \frac {r \phi_r}{2b}\).  Similarly, if the right wheel is stationary and the left wheel is turning, the resulting rate of change of heading is \(\dot{\theta} = -\frac {r \phi_l}{2b}\). If both wheels are spinning then
 \begin{align}
 \dot{\theta} &= 0.5 \frac{r}{b} (\dot{\phi}_r - \dot{\phi}_l) \nonumber
 \end{align}
@@ -97,25 +153,25 @@ To simplify analysis, we substitute \(v = 0.5 r (\dot{\phi}_r + \dot{\phi}_l)\) 
 
 Thus, the complete set of equations are
 \begin{align}
-\dot{x}_c^0 &= v \cos\theta \label{eqn:rot1} \\
-\dot{y}_c^0 &=  v \sin\theta \label{eqn:rot2} \\
-\dot{\theta} &= \omega \label{eqn:rot3}
-\end{align}
-
-&nbsp;&nbsp;&nbsp;Unlike the manipulator, the forward kinematics of the differential drive car is a differential equation. In order to animate the system, we will need to find the position \(x_c^0(t_i)\), \(y_c^0(t_i)\), and \(\theta(t_i)\) where \(t_i\) is the time step \(i=0, 1, 2,...\). We do this by integrating the equations of motion using Euler's method. Assume that \(h\) is the time step and is given, the known initial states of \(x_c^0(t_0)\), \(y_c^0(t_0)\), and \(\theta(t_0)\). Then we can find the position and heading using the formula below.
+\dot{x}_c^0 &= v \cos\theta &(1) \\
+\dot{y}_c^0 &=  v \sin\theta &(2) \\
+\dot{\theta} &= \omega &(3)
+\end{align}</pr>
+		   <pr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unlike the manipulator, the forward kinematics of the differential drive car is a differential equation. In order to animate the system, we will need to find the position \(x_c^0(t_i)\), \(y_c^0(t_i)\), and \(\theta(t_i)\) where \(t_i\) is the time step \(i=0, 1, 2,...\). We do this by integrating the equations of motion using Euler's method. Assume that \(h\) is the time step and is given, the known initial states of \(x_c^0(t_0)\), \(y_c^0(t_0)\), and \(\theta(t_0)\). Then we can find the position and heading using the formula below.
 \begin{align} 
 x_c^0(t_{i+1}) &= x_c^0(t_i) +  v(t_i) \cos\theta(t_i) h \nonumber\\
 y_c^0(t_{i+1}) &= y_c^0(t_i) +  v(t_i) \sin\theta(t_i) h \nonumber \\
 \theta(t_{i+1}) &= \theta(t_{i}) + \omega(t_i)  h \nonumber
 \end{align}
-Note that the input to the system is the speed \(v(t_i)\) and heading direction \(\omega(t_i)\). Open and run the MATLAB file <em>diff_drive.m</em>.
-		</p>
-		<section class="anchor" id="inversekinematics"></section><h3><strong>3 Inverse Kinematics</strong></h3>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/6oor2CnSx8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		<br>
-		<img src="figures/differential_drive_ik.png" alt=""/>
-		<p>Figure 2: <strong>Inverse kinematics for the differential drive car</strong>: The goal is to get a point P at a distance of \(p_x\) and \(p_y\) from \(O_1\) and along the local frame \(O_1-X_1-Y_1\) to trace the reference trajectory given by \((x_{{\scriptsize ref}}(t),y_{{\scriptsize ref}}(t))\).}</p>
-		<p>From Fig. 2 we can write
+Note that the input to the system is the speed \(v(t_i)\) and heading direction \(\omega(t_i)\). Open and run the MATLAB file <em>diff_drive.m</em>.</pr>
+
+                <h1>3 Inverse Kinematics</h1><section class="anchor" id="inverse_kinematics"></section>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/6oor2CnSx8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		        <br>
+		        <img src="figures/differential_drive_ik.png" alt=""/>
+                <p>Figure 2: <strong>Inverse kinematics for the differential drive car</strong>: The goal is to get a point P at a distance of \(p_x\) and \(p_y\) from \(O_1\) and along the local frame \(O_1-X_1-Y_1\) to trace the reference trajectory given by \((x_{{\scriptsize ref}}(t),y_{{\scriptsize ref}}(t))\).}</p>
+				
+				<pr>From Fig. 2 we can write
 \begin{align}
 p^0 &= R^0_1 p^1 \nonumber \\
 c^0 &= R^0_1 c^1  \nonumber 
@@ -238,47 +294,244 @@ Open and run the MATLAB file <em>diff_drive_ik.m</em>. This file shows how to dr
 \(x_{{ref}}(t) = \cos^3(\frac{\pi t}{5})\) and
 \(y_{{\scriptsize ref}}(t) = \sin^3(\frac{\pi t}{5})\).
 
-This is how the simulation is done. We find the controls, \(v\) and \(\omega\) from Eqn. 11 and use that to integrate the Eqns 1, 2, and 3. </p>
-		
-      <aside id="authorInfo"> 
-        <!-- The author information is contained here -->
-        <h2>Author Name</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </aside>
-    </section>
-    <section id= "sidebar" class="fixed-right"> 
-      <!--************************************************************************
-    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
-    ****************************************************************************-->
-      <div id="table"><p><strong>Table of Contents</strong></p></div>
-      <nav>
-        <ul><p>Differential drive car</p>
-          <li><a href="#differentialdrivecar" title="Link">&nbsp;&nbsp;&nbsp;1 Differential drive car</a></li>
-          <li><a href="#forwardkinematics" title="Link">&nbsp; &nbsp;2 Forward Kinematics</a></li>
-          <li><a href="#inversekinematics" title="Link">&nbsp;&nbsp;&nbsp;3 Inverse Kinematics</a></li>
-			<p>Notes: 
-				<br> Forward Kinematics <a href="notes/2D_diff_drive_forward_kinematics.pdf">Notes</a>
-				<a href="code/2D_diff_drive_forward_matlab/">MATLab Code</a>
-			<br>Inverse Kinematics <a href="notes/2D_diff_drive_inverse_kinematics.pdf">Notes</a>
-				<a href="code/2D_diff_drive_forward_matlab">MATLab Code</a></p>
-        </ul>
-      </nav>
-    </section>
-    <footer> 
-      <!--************************************************************************
-    Footer starts here
-    ****************************************************************************-->
-      <article>
-        <h3>Footer1</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </article>
-      <article>
-        <h3>Footer2</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </article>
-    </footer>
-  </div>
-  <div id="footerbar"><!-- Small footerbar at the bottom --></div>
-</div>
+This is how the simulation is done. We find the controls, \(v\) and \(\omega\) from Eqn. 11 and use that to integrate the Eqns 1, 2, and 3.</pr>
+				
+                <h2>Technology</h2>
+                
+                <p>This app is built with Javascript, HTML and CSS.<br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+
+                <p id="gettingstarted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p> 
+                 
+        <div class="divider" style="width:24%; margin:30px 0;"></div>
+
+                <h1>Getting Started</h1>
+
+                <h2>This is a sub-header</h2>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+                sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+
+                <p id="installingapp"><b>Important:</b> This line is for an important information.</p>
+                
+                
+                <h2>Install the App</h2>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                
+                   <ol>
+                    <li>
+                     The first thing you need to do to install this app.
+                    </li>
+                    <br>
+                    <li>
+                    The second thing you need to do to install this app.
+                    </li>
+                    <br id="openingapp">
+                    <li>
+                     The app is installed now.
+                    </li>
+                    <br>
+                </ol>
+                
+
+                <h2>Opening the app</h2>
+                
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                
+                 <ol>
+                    <li>
+                     The first thing you need to do to open this app.
+                    </li>
+                    <br>
+                    <li>
+                     The second thing you need to do to open this app.
+                    </li>
+                    <br>
+                    <li>
+                      The third thing you need to do to open this app.
+                    </li>
+                    <br>
+                    <li>
+                     Open the app and start using it!
+                    </li>
+                    <br>
+                </ol>
+                
+                <p id="basicfeatures">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                    
+            <div class="divider" style="width:24%; margin:30px 0;"></div>
+            
+            
+                <h1>Basic Features</h1>
+
+                <h2>Feature 1</h2>
+                
+                <p id="basicfeatures">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                </p>
+                
+                <h2>Feature 2</h2>
+                
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <br><br>
+                <b>Explanation 1</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br>
+                <br>
+                <b>Explanation 2</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br>
+                <br>
+                <b>Explanation 3</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br>
+                <br id="feature3">
+                <b>Explanation 4</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </p>
+                
+                <h2>Feature 3</h2>
+                
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <br id="feature4">
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </p>
+                
+                <h2>Feature 4</h2>
+                
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <br>
+                  <br>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 <br>
+                 <br id="feature5">
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                
+                
+                <h2>Feature 5</h2>
+                
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                <br>
+                <br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <br>
+                </p>
+                
+        
+                
+               <h2>Feature 5</h2>
+                 
+               <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                <br id="advanced">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                
+                <div class="divider" style="width:24%; margin:30px 0;"></div>
+                
+                <h1>Advanced Features</h1>
+                
+                <h2>Feature A</h2>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                <br>
+                <br id="featureb">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                   
+                
+                <h2>Feature B</h2>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <br>
+                <br id="featurec">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                
+                
+                <h2>Feature C</h2>
+                  
+                <p id="featurec1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  
+                 
+                <h2>Feature C.1</h2>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit:
+                </p>
+                
+                   <ul>
+                    <li>
+                    <b>Point 1</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    <br>
+                    <li>
+                    <b>Point 2</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                    </li>
+                    <br id="featurec2">
+                     <li>
+                    <b>Point 3</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <br>
+                </ul>
+                   
+                 <h2>Feauture C.2</h2>
+                   
+                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    <br>
+                    <br>
+                     <b>Important:</b> Please notice that lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    <br>
+                    <br>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 </p>
+                  
+                  
+                  <h2>Feature D</h2>
+                  
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <br>
+                  <br id="accesibility">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  
+                  
+                <div class="divider" style="width:24%; margin:30px 0;"></div>
+                   
+                   <h1>Accessibility</h1>
+                   
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                   <br>
+                   <br>
+                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                   <br>
+                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                   
+                   <p>Lorem ipsum dolor sit amet.
+                      <br id="moreinfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                   
+                <div class="divider" style="width:24%; margin:30px 0;"></div>
+
+                <h1>More Info</h1>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.marks are protected by intellectual property rights.</p>
+
+                <div class="doublespace"></div>
+                <div class="divider" style="width:24%; margin:30px 0;"></div>
+                
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
 </body>
+
 </html>
