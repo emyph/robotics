@@ -1,0 +1,257 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jacobian</title>
+    <meta name="description" content="A simple HTML/CSS DocumentationTemplate">
+    <meta name="author" content="Carlos Yllobre">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="robotics/style.css" rel="stylesheet" type="text/css">
+	
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+	
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+    <div class="navbar clear nav-top">
+        <div class="row content">
+            <body align="left">Table of Contents:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</body>
+            <a class="right" href="2dsimstable.html">2D Simulations</a>
+            <a class="right" href="3dsimtable.html">3D Simulations</a>
+			<a class="right" href="planningtable.html">Planning</a>
+        </div>
+    </div>
+
+    <div class="container clear">
+        <div class="row wrapper">
+
+            <div class="sidepanel">
+
+                <a class="title" href="#">Jacobian</a>
+                
+                <a class="section" href="#">1 Jacobian</a>
+                <a class="section" href="#cartesianvelocity">2 Application of Jacobian: Cartesian velocity</a>
+                <a class="section" href="#staticforces">3 Application of Jacobian: Static forces</a>
+                <a class="section" href="#closedchain">4 Application of Jacobian: Closed chain simulation</a>
+
+                <div class="divider left"></div>
+				
+				<a class="title" href="#">Materials</a>
+
+				<a class="section" href="#">MATLAB Code</a>
+				<a class="section" href="#">Python Code</a>
+                <a class="section" href="#">Notes</a>
+
+                <div class="divider left"></div>
+
+            </div>
+
+            <div class="right-col">
+            
+
+
+                <h1>1 Jacobian</h1>
+				
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/yFh-HDtPbgQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                <p>The Jacobian \({\bf J}\) defines the change of a vector function (say \({\bf f}=\begin{bmatrix} f_1({\bf q}), & f_2({\bf q}), & f_3({\bf q}), & ... & f_m({\bf q})\end{bmatrix}\)) as a function of several independent variables (\({\bf q} = \begin{bmatrix}  x_1, & x_2, & ... & x_n \end{bmatrix}\)). The Jacobian \({\bf J}\) is a \(m \times n\) matrix defined as follows
+\begin{align}
+{\bf J} = \frac{\partial {\bf f}}{\partial {\bf q}} = 
+\begin{bmatrix} 
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \frac{\partial f_1}{\partial x_3} & ... & \frac{\partial f_1}{\partial x_n} \\ \\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \frac{\partial f_2}{\partial x_3} & ... & \frac{\partial f_2}{\partial x_n} \\ \\
+... & ... & .... & ...  & ... \\ \\
+\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \frac{\partial f_m}{\partial x_3} & ... & \frac{\partial f_m}{\partial x_n} \\ 
+\end{bmatrix} &(1)
+\end{align}</p> 
+				<pr><strong>Example:</strong> Consider \({\bf f}=\begin{bmatrix} x^2+y^2, & 2 x + 3 y + 5\end{bmatrix}\) and \({\bf q} = \begin{bmatrix} x, & y \end{bmatrix}\). The Jacobian \({\bf J} = \begin{bmatrix} 2x & 2y \\ 2 & 3 \end{bmatrix}\).  Then the numerical value of the Jacobian at \({\bf x} = \begin{bmatrix} 1, & 2 \end{bmatrix}\), \({\bf J} = \begin{bmatrix} 2 & 4 \\ 2 & 3 \end{bmatrix}\). The numerical Jacobian is found by substitution as well as using central difference yielding the same answer. </pr>
+            
+                <h1>2 Application of Jacobian: Cartesioan velocity</h1><section class="anchor" id="cartesianvelocity"></section>
+				
+				<p>Consider the double pendulum shown in Fig. 1. Let us we have written the position of random point R in fixed frame \({\bf r}^0 = {\bf f} ({\bf q})\). Now the Jacobian is \({\bf J} = \frac{\partial {\bf f}}{\partial {\bf q}}\). We can rewrite this as \(\partial {\bf f} = {\bf J} \partial {\bf q}\). Change to complete derivative and divide by \(dt\) to get \(\frac{d {\bf f}}{d {\bf t}} = {\bf J} \frac{d {\bf q}}{d {\bf t}}\) or \({\bf \dot{r}}^0 = {\bf J} {\bf \dot{q}}\)</p>
+				
+				<pr>This can be rewritten as
+\begin{align}
+{v}_{G_1} &=  
+{\bf J}_{G_1}
+\begin{bmatrix}
+ \omega_1  \\
+ \omega_2
+\end{bmatrix}  =
+\begin{bmatrix}
+\frac{\partial x_{G_1}}{\partial \theta_1}  & \frac{\partial x_{G_1}}{\partial \theta_2}\\
+\frac{\partial y_{G_1}}{\partial \theta_1} & \frac{\partial y_{G_1}}{\partial \theta_2}
+\end{bmatrix}
+\begin{bmatrix}
+ \omega_1  \\
+ \omega_2
+\end{bmatrix}
+\nonumber \\
+& = \begin{bmatrix}
+c_1 \cos(\theta_1) & 0 \\
+c_1  \sin(\theta_1) & 0 
+\end{bmatrix}   
+\begin{bmatrix}
+\omega_1  \\
+ \omega_2
+\end{bmatrix} 
+= \begin{bmatrix}
+c_1 \omega_1 \cos(\theta_1) \\
+c_1 \omega_1 \sin(\theta_1)
+\end{bmatrix} &(2) 
+\end{align}</pr>
+				
+				<img src="figures/double_pendulum.png" alt=""/>
+				<pr><small>Figure 1: Example-double pendulum</small></pr>
+				
+				<pr>\begin{align}
+{v}_{G_2} &=  
+{\bf J}_{G_2}
+\begin{bmatrix}
+\omega_1  \\
+ \omega_2
+\end{bmatrix} = \begin{bmatrix}
+\frac{\partial x_{G_2}}{\partial \theta_1}  & \frac{\partial x_{G_2}}{\partial \theta_2}\\
+\frac{\partial y_{G_2}}{\partial \theta_1} & \frac{\partial y_{G_2}}{\partial \theta_2}
+\end{bmatrix}
+\begin{bmatrix}
+ \omega_1  \\
+ \omega_2
+\end{bmatrix} \nonumber \\
+&=
+\begin{bmatrix} 
+ c_2 \cos(\theta_1 + \theta_2) + \ell \cos(\theta_1)) &  c_2 \cos(\theta_1 + \theta_2) \\
+c_2 \sin(\theta_1 + \theta_2) +  \ell \sin(\theta_1)) &  c_2 \sin(\theta_1 + \theta_2)
+\end{bmatrix}
+\begin{bmatrix}
+\omega_1  \\
+ \omega_2
+\end{bmatrix} \nonumber \\
+&= 
+\begin{bmatrix}
+\omega_1 (c_2 \cos(\theta_1 + \theta_2) + \ell \cos(\theta_1)) +  \omega_2 c_2 \cos(\theta_1 + \theta_2) \\
+\omega_1 (c_2 \sin(\theta_1 + \theta_2) +  \ell \sin(\theta_1)) + \omega_2  c_2 \sin(\theta_1 + \theta_2)
+\end{bmatrix} &(3)
+\end{align}</pr>
+				
+				<pr>As we saw earlier, Jacobian can be used to find the velocity. For example, Velocity of the points \(P\)
+					\begin{align}
+{v}_{P} &=  {\bf J}_{P} 
+\begin{bmatrix}
+ \omega_1  \\
+ \omega_2
+\end{bmatrix} \nonumber \\
+&=
+\begin{bmatrix}
+\frac{\partial x_{P}}{\partial \theta_1}  & \frac{\partial x_{P}}{\partial \theta_2}\\
+\frac{\partial y_{P}}{\partial \theta_1} & \frac{\partial y_{P}}{\partial \theta_2}
+\end{bmatrix}
+\begin{bmatrix}
+ \omega_1  \\
+ \omega_2
+\end{bmatrix} &(4)
+\end{align}
+</pr>
+
+                <h1>3 Application of Jacobian: Static forces</h1><section class="anchor" id="staticforces"></section>
+                <p>Reconsider the double pendulum Fig. 1. We want to find the torques \(\tau_1\) and \(\tau_2\) needed at the joint \(O_0\) and \(P\) to hold the pendulum in static equilibrium. We will derive an expression using virtual work.
+<br>
+					<br>
+Let \(\delta W\) be the virtual work done when the application of torque \(\tau\) leads a virtual rotation of \(\delta \theta\) and virtual force \(F\) (external force, gravity force) leads to a virtual displacement of \(\delta r\) (\(r=x\) of \(r=y\)). Thus, 
+\begin{align}
+\delta W = \tau^T \delta \theta - F^T \delta r &&&&(5)
+\end{align}
+where the sign here are used to signify these virtual works cancel each other's effect. 
+But since there is no real work done \(\delta W = 0\). Thus,
+\begin{align}
+\tau^T \delta \theta &= F^T \delta r \nonumber \\
+\tau^T & = F^T \frac{\delta r}{\delta \theta} \nonumber \\
+\tau^T & = F^T J  &&&&&&(6)
+\end{align}
+Finally, taking transpose of both sides we get
+\begin{align}
+\tau = J^T F &&&&&&&&&(7)
+\end{align}
+
+Let us apply this formula to find the torques are joint $O_0$ and $O_1$.
+\begin{align}
+\tau &= 
+{\bf J}_{G_1}
+\begin{bmatrix}
+0 \\
+- m_1 g
+\end{bmatrix} + 
+{\bf J}_{G_2} 
+\begin{bmatrix}
+0 \\
+- m_2 g
+\end{bmatrix} &&&&(8)
+\end{align}</p>
+				<pr>Substituting values for the Jacobian
+\begin{align}
+\tau &= 
+\begin{bmatrix}
+c_1 \cos(\theta_1) & c_1  \sin(\theta_1) \\
+0 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+- m_1 g
+\end{bmatrix} +  ...  \nonumber \\
+& \qquad\qquad\qquad \begin{bmatrix}
+ c_2 \cos(\theta_1 + \theta_2) + \ell \cos(\theta_1) &  
+c_2 \sin(\theta_1 + \theta_2) +  \ell \sin(\theta_1) \\
+ c_2 \cos(\theta_1 + \theta_2) &
+c_2 \sin(\theta_1 + \theta_2)
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+- m_2 g
+\end{bmatrix} \nonumber 
+\end{align} </pr>
+				
+				<pr>Simplifying 
+\begin{align}
+\tau &= 
+\begin{bmatrix}
+\tau_1 \\
+\tau_2
+\end{bmatrix} = 
+\begin{bmatrix}
+- m_1 g c_1  \sin(\theta_1) 
+- m_2 g c_2 \sin(\theta_1 + \theta_2) - m_2 g \ell \sin(\theta_1)  \\
+-m_2 g c_2 \sin(\theta_1 + \theta_2)
+\end{bmatrix} \nonumber
+\end{align} </pr>
+                <h1>4 Application of Jacobian: Closed chain simulation</h1><section class="anchor" id="closedchain"></section>
+				<p>Todo: Write on 5-link pendulum and 5-link chain. </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
